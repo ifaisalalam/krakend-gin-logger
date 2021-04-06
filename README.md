@@ -4,7 +4,7 @@ The module enables getting GIN router logs in JSON format.
 
 ### Setting Up
 
-Clone the [KrakenD-CE](https://github.com/devopsfaith/krakend-ce) repository and update [this line](https://github.com/devopsfaith/krakend-ce/blob/f77ed77b24c8dba6f45dfb8ff14fb21ee7348d9a/router_engine.go#L21) to the following:
+Clone the [KrakenD-CE](https://github.com/devopsfaith/krakend-ce) repository and update the following changes in the `router_engine.go` file:
 
 ```diff
 import (
@@ -39,7 +39,7 @@ In KrakenD's `configuration.json` file, add the following to the service `extra_
 
 #### Available Config Options
 
-`skip_paths`: Array of endpoint paths which should not be logged.
+`skip_paths`: List of endpoint paths which should not be logged.
 
 Example:
 
@@ -71,6 +71,8 @@ The module can also be used with Logstash. Simply enable Logstash in the service
       "prefix": "[KRAKEND]",
       "syslog": false,
       "stdout": true,
+      "format": "custom",
+      "custom_format": "%{message}"
     },
     "github_com/ifaisalalam/krakend-gin-logger": {
       "enabled": true
