@@ -7,6 +7,7 @@ package gin_logger
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/devopsfaith/krakend-gologging"
 	logstash "github.com/devopsfaith/krakend-logstash"
@@ -31,6 +32,7 @@ func NewLogger(cfg config.ExtraConfig, logger logging.Logger, loggerConfig gin.L
 		logger.Debug(fmt.Sprintf("%s: %d skip paths set", moduleName, len(v.SkipPaths)))
 		loggerConfig.SkipPaths = v.SkipPaths
 	}
+	loggerConfig.Output = ioutil.Discard
 	loggerConfig.Formatter = Formatter{logger, v}.DefaultFormatter
 	return gin.LoggerWithConfig(loggerConfig)
 }
