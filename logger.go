@@ -24,14 +24,12 @@ const (
 func NewLogger(cfg config.ExtraConfig, logger logging.Logger, loggerConfig gin.LoggerConfig) gin.HandlerFunc {
 	v, ok := ConfigGetter(cfg).(Config)
 	if !ok {
-		logger.Debug(fmt.Sprintf("%s: module not enabled", moduleName))
 		return gin.LoggerWithConfig(loggerConfig)
 	}
 
-	if len(v.SkipPaths) > 0 {
-		logger.Debug(fmt.Sprintf("%s: %d skip paths set", moduleName, len(v.SkipPaths)))
-		loggerConfig.SkipPaths = v.SkipPaths
-	}
+	loggerConfig.SkipPaths = v.SkipPaths
+	logger.Info(fmt.Sprintf("%s: total skip paths set: %d", moduleName, len(v.SkipPaths)))
+
 	loggerConfig.Output = ioutil.Discard
 	loggerConfig.Formatter = Formatter{logger, v}.DefaultFormatter
 	return gin.LoggerWithConfig(loggerConfig)
