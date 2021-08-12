@@ -16,9 +16,9 @@ import (
 
 	gologging "github.com/devopsfaith/krakend-gologging"
 	logstash "github.com/devopsfaith/krakend-logstash"
-	"github.com/devopsfaith/krakend/config"
-	"github.com/devopsfaith/krakend/logging"
 	"github.com/gin-gonic/gin"
+	"github.com/luraproject/lura/config"
+	"github.com/luraproject/lura/logging"
 )
 
 func TestNewLogger(t *testing.T) {
